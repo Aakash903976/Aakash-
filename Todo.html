@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style6.css">
+</head>
+<body>
+    <div class="container">
+        <img src="https://cdn-icons-png.freepik.com/256/8476/8476658.png?semt=ais_hybrid" class="card"/>
+        <h1>To-Do List</h1>
+        <div class="input-group">
+            <input type="text" id="new-task" placeholder="Add a new task...">
+            <button id="add-task-btn">Add Task</button>
+        </div>
+        <ul id="task-list"></ul>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #211f1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
+.container {
+    background-color: rgb(169, 165, 165);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+.card{
+    height: 100px;
+    width: 100px;
+    padding: 5px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+li span {
+    flex: 1;
+}
+
+button.edit {
+    background-color: #ffc107;
+}
+
+button.delete {
+    background-color: #dc3545;
+    margin-left: 5px;
+}
+
+button.edit:hover {
+    background-color: #e0a800;
+}
+
+button.delete:hover {
+    background-color: #c82333;
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const taskInput = document.getElementById('new-task');
+  const addTaskBtn = document.getElementById('add-task-btn');
+  const taskList = document.getElementById('task-list');
+
+  // Load tasks from localStorage
+  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+  // Function to render tasks
+  function renderTasks() {
+      taskList.innerHTML = ''; // Clear the list before rendering
+      tasks.forEach((task, index) => {
+          const li = document.createElement('li');
+          const taskSpan = document.createElement('span');
+          taskSpan.textContent = task;
+
+          const editBtn = document.createElement('button');
+          editBtn.textContent = 'Edit';
+          editBtn.classList.add('edit');
+          editBtn.addEventListener('click', () => editTask(index));
+
+          const deleteBtn = document.createElement('button');
+          deleteBtn.textContent = 'Delete';
+          deleteBtn.classList.add('delete');
+          deleteBtn.addEventListener('click', () => deleteTask(index));
+
+          li.appendChild(taskSpan);
+          li.appendChild(editBtn);
+          li.appendChild(deleteBtn);
+
+          taskList.appendChild(li);
+      });
+  }
+
+  // Function to add a new task
+  function addTask() {
+      const newTask = taskInput.value.trim();
+      if (newTask !== '') {
+          tasks.push(newTask);
+          localStorage.setItem('tasks', JSON.stringify(tasks));
+          renderTasks();
+          taskInput.value = '';
+      }
+  }
+
+  // Function to delete a task
+  function deleteTask(index) {
+      tasks.splice(index, 1);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      renderTasks();
+  }
+
+  // Function to edit a task
+  function editTask(index) {
+      const newTask = prompt('Edit task:', tasks[index]);
+      if (newTask !== null && newTask.trim() !== '') {
+          tasks[index] = newTask.trim();
+          localStorage.setItem('tasks', JSON.stringify(tasks));
+          renderTasks();
+      }
+  }
+
+  // Add task event
+  addTaskBtn.addEventListener('click', addTask);
+
+  // Render tasks on page load
+  renderTasks();
+});
