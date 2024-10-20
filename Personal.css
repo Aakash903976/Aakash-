@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Personal Portfolio</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home">
+        
+        <div class="intro">
+            <img src="Aakash.jpeg" />
+            <h1>Hello, I'm [Aakash Tiwari]</h1>
+            <p>A passionate web developer & designer</p>
+            <button onclick="scrollToAbout()">Learn More</button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <p>
+            I am a web developer with a passion for creating beautiful and functional websites. I specialize in front-end development and have experience with HTML, CSS, JavaScript, and responsive design. 
+        </p>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project-container">
+            <div class="project">
+                <h3>Project 1</h3>
+                <p>Calculator</p>
+            </div>
+            <div class="project">
+                <h3>Project 2</h3>
+                <p>spotify clone</p>
+            </div>
+            <div class="project">
+                <h3>Project 3</h3>
+                <p>Netflix clone</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form id="contactForm">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+        <div id="successMessage" style="display:none;">
+            Thank you for your message. I'll get back to you soon!
+        </div>
+    </section>
+
+    <script src="app1.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #333;
+    padding: 10px 20px;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Home Section */
+#home {
+    height: 100vh;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.intro h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.intro button {
+    padding: 10px 20px;
+    background-color: #ba1818;
+    color: rgb(20, 7, 7);
+    border: none;
+    cursor: pointer;
+}
+
+.intro button:hover {
+    background-color: #555;
+}
+
+/* About Section */
+#about {
+    padding: 50px 20px;
+    background-color: #fafafa;
+}
+
+#about h2 {
+    text-align: center;
+}
+
+#about p {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Projects Section */
+#projects {
+    padding: 50px 20px;
+}
+
+#projects h2 {
+    text-align: center;
+}
+
+.project-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.project {
+    width: 30%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.project h3 {
+    margin-bottom: 10px;
+}
+
+/* Contact Section */
+#contact {
+    padding: 50px 20px;
+    background-color: #f0f0f0;
+}
+
+#contact h2 {
+    text-align: center;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+form input, form textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+
+form button {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #555;
+}
+
+/* Success Message */
+#successMessage {
+    text-align: center;
+    color: green;
+    font-size: 18px;
+    margin-top: 20px;
+}
+.intro img {
+    height : 300px;
+    width: 350px;
+    border-radius: 50%;
+  }
+  // Scroll to About section
+function scrollToAbout() {
+    document.getElementById("about").scrollIntoView({ behavior: 'smooth' });
+}
+
+// Contact form handling
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('contactForm').reset();
+    document.getElementById('successMessage').style.display = 'block';
+});
