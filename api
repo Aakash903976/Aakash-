@@ -1,0 +1,6 @@
+git init
+git add .
+git commit -m "Initial commit - Spring Boot SQL Solver"
+git branch -M main
+git remote add origin https://github.com/<username>/sqlsolver.git
+git push -u origin main
